@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidateData } from "../utils/checkValidateData";
+import HomePageWallpaper from "../assets/wall4.png";
 const Login = () => {
   const [isSignedInForm, setIsSignedInForm] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
@@ -31,12 +32,12 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/dd4dfce3-1a39-4b1a-8e19-b7242da17e68/86742114-c001-4800-a127-c9c89ca7bbe4/IN-en-20240527-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={HomePageWallpaper}
           alt="background"
           className=""
         />
       </div>
-      <div className="absolute w-1/3 p-12 bg-black bg-opacity-80 my-36 mx-auto right-0 left-0 rounded-lg text-white">
+      <div className="absolute w-1/3 p-12 bg-white bg-opacity-70 my-36 mx-auto right-0 left-0 rounded-lg text-black">
         <form 
           onSubmit={(e) => e.preventDefault()}
         >
@@ -48,24 +49,24 @@ const Login = () => {
               ref={name}
               type="text"
               placeholder="Name"
-              className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 my-4 mx-2 p-4"
+              className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-40 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 mx-2 p-4"
             />
           )}
           <input
             ref={email}
             type="text"
             placeholder="Email or phone number"
-            className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 my-4 mx-2 p-4"
+            className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 mx-2 p-4"
           />
           <input
             ref={password}
             type="password"
             placeholder="Password"
-            className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 my-4 mx-2 p-4"
+            className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 mx-2 p-4"
           />
           {error && <p className="text-red-500 p-2">{error}</p>}
           <button 
-          className=" w-full h-10 bg-red-500 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50  m-2 p-2 hover:bg-red-600 "
+          className=" w-full h-10 bg-blue-600 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50  m-2 p-2 hover:bg-blue-600 "
           onClick={handleButtonCLick}
           >
             {isSignedInForm ? "Sign In" : "Sign Up"}
@@ -81,7 +82,7 @@ const Login = () => {
 
           <p className="p-2 cursor-pointer " onClick={toggleForm}>
             {isSignedInForm
-              ? "New to Netflix? Sign up now."
+              ? "New to AniSensei? Sign up now."
               : "Already a member? Sign in now."}
           </p>
         </form>
