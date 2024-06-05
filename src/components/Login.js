@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidateData } from "../utils/checkValidateData";
 import HomePageWallpaper from "../assets/wall4.png";
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 const Login = () => {
   const [isSignedInForm, setIsSignedInForm] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
@@ -20,8 +22,40 @@ const Login = () => {
   // console.log(password.current.value);
   const msg = checkValidateData( name?.current?.value ,email.current.value, password.current.value);
   setError(msg);
+  if (msg) return;
 
-  };
+  if (!isSignedInForm) {
+    // console.log("Sign In");
+    createUserWithEmailAndPassword(auth, email.current.value , password.current.value)
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+    setError(errorMessage+errorCode);
+  });
+  }
+  else {
+    // console.log("Sign Up");
+    signInWithEmailAndPassword(auth, email.current.value , password.current.value)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorMessage+errorCode);
+  });
+  }
+}
 
   const handleRememberMe = () => {
     setRememberMe(!rememberMe);
