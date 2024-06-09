@@ -72,7 +72,8 @@ const Login = () => {
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(errorMessage+errorCode);
+    // console.log(errorMessage+errorCode);
+    setError(errorMessage+errorCode);
   });
   }
 }
