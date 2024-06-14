@@ -57,7 +57,7 @@ const Header = () => {
   };
 
   return (
-    <div className=" px-8 py-2 absolute bg-gradient-to-b from-blue-200 w-full z-10 flex justify-between ">
+    <div className=" px-8 py-2 absolute bg-gradient-to-b from-black w-screen z-10 flex justify-between ">
       <Link to="/">
         <img
           src={Logo}
