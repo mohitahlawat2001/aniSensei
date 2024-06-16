@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const aniSenseiSlice = createSlice({
     name: 'aniSensei',
     initialState: {
-        searchView: false,
+        searchView: true,
     },
     reducers: {
         toggleSearchView: (state, action) => {

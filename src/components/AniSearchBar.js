@@ -1,7 +1,17 @@
+import lang from "../utils/languageConstants";
+import { useSelector } from "react-redux";
+
 const AniSearchBar = ()=>{
+    const langCode = useSelector((state) => state.config.lang);
     return(
-        <div className='p-2 m-2 bg-gray-200 rounded-lg'>
-            <input type="text" placeholder="Search for anime..." />
+        <div className="w-screen pt-[10%] flex justify-center ">
+            <form className="w-1/2 grid grid-cols-12 p-6">
+                <input type="text" placeholder={lang[langCode].AniSearchPlaceholder}
+                 className=" py-2 col-span-9 border-2 border-blue-300 rounded-md mx-2 text-center focus:bg-blue-100 " />
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2  col-span-3 rounded">{
+                    lang[langCode].search
+                }</button>
+            </form>
         </div>
     )
 }

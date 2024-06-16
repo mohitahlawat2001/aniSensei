@@ -8,13 +8,16 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { removeUser, addUser } from "../utils/userSlice";
 import { toggleSearchView } from "../utils/aniSenseiSlice";
+import { setLanguage } from "../utils/configSlice";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { SUPPORTED_LANGUAGES } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const searchView = useSelector((state) => state.aniSensei.searchView);
   const dispatch = useDispatch();
 
   const handleAniSenseiClick = () => {
@@ -65,6 +68,11 @@ const Header = () => {
       });
   };
 
+  const handleLanguageChange = (e) => {
+    const lang = e.target.value;
+    console.log(lang);
+    dispatch(setLanguage(lang));
+  }
   return (
     <div className=" px-8 py-2 absolute bg-gradient-to-b from-black w-screen z-10 flex justify-between ">
       <Link to="/">
@@ -77,10 +85,19 @@ const Header = () => {
 
       {user && (
         <div className="p-2 mx-2 flex ">
+          {searchView && (
+          <select className="bg-transparent text-white   px-2   rounded-lg font-bold" onChange={handleLanguageChange}>
+            {SUPPORTED_LANGUAGES.map((lang) => (
+              <option key={lang.identifer} value={lang.identifer} className="bg-black">
+                {lang.name}
+              </option>
+            ))}
+          </select>
+          )}
           <button 
             onClick={handleAniSenseiClick}
           className="bg-blue-600 text-white px-4  mx-4 rounded-lg font-bold hover:animate-pulse ">
-            aniSensei
+            {searchView ? "Home" : "AniSensei"}
           </button>
           <img
             src={user?.photoURL}
