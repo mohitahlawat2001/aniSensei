@@ -7,10 +7,19 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { removeUser, addUser } from "../utils/userSlice";
+import { toggleSearchView } from "../utils/aniSenseiSlice";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  const handleAniSenseiClick = () => {
+    dispatch(toggleSearchView());
+  }
 
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, (user) => {
@@ -68,17 +77,23 @@ const Header = () => {
 
       {user && (
         <div className="p-2 mx-2 flex ">
+          <button 
+            onClick={handleAniSenseiClick}
+          className="bg-blue-600 text-white px-4  mx-4 rounded-lg font-bold hover:animate-pulse ">
+            aniSensei
+          </button>
           <img
             src={user?.photoURL}
             alt="User Profile"
-            className="w-12 h-12 rounded-full cursor-pointer"
+            className="w-12 h-12 rounded-full cursor-pointer "
           />
           {/* sign out button */}
           <button
             onClick={() => handleSignOut()}
-            className="bg-blue-700 text-white px-2 py-1 rounded-lg ml-2 font-bold "
+            // className="bg-blue-700 text-white px-2 py-1 rounded-lg m-2 font-bold "
+            className="w-12 h-12 mx-2"
           >
-            Sign out
+            <FontAwesomeIcon icon={faRightFromBracket} size="2xl" style={{color: "#74C0FC",}} />
           </button>
         </div>
       )}
