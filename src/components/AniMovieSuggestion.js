@@ -1,8 +1,21 @@
+import { useSelector } from 'react-redux';
+import MovieList from './MovieList';
+
 const AniMovieSuggestion = () => {
+
+    const {resultMovie, resultName} = useSelector((state) => state.aniSensei);
+
+    if (!resultName || !resultMovie) {
+        return ;
+    }
+
     return (
-        <div>
-        <h2>Movie Suggestion</h2>
-        <p>How about watching Spirited Away?</p>
+        <div className='p-4 m-4 bg-black text-white opacity-80 '>
+            {   
+                resultName.map((name, index) => 
+                    <MovieList key={name} title={name} movieList={resultMovie[index]} />
+            )
+            }
         </div>
     );
     }
