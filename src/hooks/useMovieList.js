@@ -1,14 +1,23 @@
 
 import { useEffect } from "react";
 import { API_OPTIONS, MOVIE_LIST } from "../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { addPopularMovies ,addTopRatedMovies,addUpComingMovies } from "../utils/movieSlice";
 
 const useMoviesList = (type) => {
 
-const dispatch = useDispatch()
+    const movies = useSelector((state) => state.movies)
 
+    const dispatch = useDispatch()
+    
     useEffect(() => {
+        if(type === 'popular' && movies.popularMovies){
+            return; 
+        } else if(type === 'top_rated' && movies.topRatedMovies){
+            return;
+        } else if(type === 'upcoming' && movies.upComingMovies){
+            return;
+        }
         getPopularMovies()
     }, [])
 

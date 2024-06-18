@@ -10,7 +10,7 @@ const AniMovieSuggestion = () => {
     }
 
     return (
-        <div className='p-4 m-4 bg-black text-white opacity-80 '>
+        <div className='p-4 m-4 bg-black text-white opacity-90 '>
             {   
                 resultName.map((name, index) => 
                     <MovieList key={name} title={name} movieList={resultMovie[index]} />
