@@ -1,70 +1,136 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+# AniSensei
 
-In the project directory, you can run:
+AniSensei is a feature-rich React application designed to provide users with the latest movie recommendations and suggestions, leveraging the power of the TMDB API. The application offers a seamless and engaging user experience, enhanced with Tailwind CSS, and supports multi-language features.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Authentication
+- **Login/Sign Up:** Secure authentication system for user account management.
+- **Sign In / Sign Up Forms:** Easy-to-use forms with validation.
+- **Redirect to Browse Page:** Users are redirected to the browse page upon successful authentication.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Main Functionality
+- **Browse (after authentication):** Explore a wide range of movies.
+- **Header:** Intuitive navigation with a visually appealing header.
+- **Main Movie:** Display of the main highlighted movie with background trailer.
+- **Trailer in Background:** Embedded YouTube video for movie trailers with autoplay and mute functionality.
+- **Title & Description:** Detailed information about the main movie.
+- **Movie Suggestions:** Personalized movie suggestions based on user preferences.
+- **Movie Lists:** Multiple movie lists to explore different categories.
+- **AniSensei Search Bar:** Powerful search functionality for discovering new movies.
+- **Movie Suggestions:** Tailored movie suggestions based on search results.
 
-### `npm test`
+## Setup and Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
+- Node.js
+- npm or yarn
+- Firebase Account
+- TMDB API Key
+- Gemini API Key
 
-### `npm run build`
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/anisensei.git
+   cd anisensei
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Set up environment variables:
+   Create a `.env` file in the root directory and add your API keys and other necessary configuration:
+   ```bash
+   REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
+   REACT_APP_TMDB_API_KEY=your_tmdb_api_key
+   REACT_APP_GEMINI_API_KEY=your_gemini_api_key
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+4. Start the development server:
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
 ### Deployment
+Deploy the application to your preferred hosting service. For Firebase Hosting, follow these steps:
+1. Install Firebase CLI:
+   ```bash
+   npm install -g firebase-tools
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. Login to Firebase:
+   ```bash
+   firebase login
+   ```
 
-### `npm run build` fails to minify
+3. Initialize Firebase in your project:
+   ```bash
+   firebase init
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+4. Deploy the application:
+   ```bash
+   firebase deploy
+   ```
+
+## Project Structure
+```
+anisensei/
+├── public/
+├── src/
+│   ├── components/
+│   ├── hooks/
+│   ├── assets/
+│   ├── utils/
+│   ├── App.js
+│   ├── index.js
+│   └── ...
+├── .env
+├── .gitignore
+├── package.json
+└── tailwind.config.js
+```
+
+## Key Implementations
+
+### Hooks
+- **useRef Hook:** For accessing DOM elements directly.
+- **Custom Hooks:** `usePopularMovies`, `useNowPlayingMovies`,`useAniSensei`
+
+### State Management
+- **Redux Store:** Configured with `userSlice`, `movieSlice`, `anisenseiSlice`.
+- **Memoization:** To optimize performance (used redux-store) .
+
+### API Integration
+- **TMDB API:** For fetching movie data.
+- **Gemini API:** For advanced search and recommendation functionality based on user data.
+
+### Styling
+- **Tailwind CSS:** For responsive and modern UI design.
+
+## Contributing
+
+We welcome contributions! Please follow these steps to contribute:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes and commit them (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
+---
+
+Feel free to customize this README further to match your specific project details and preferences!
