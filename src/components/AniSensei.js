@@ -9,11 +9,13 @@ const AniSensei = () => {
         <img
           src={HomePageWallpaper}
           alt="background"
-          className=""
+          className="w-screen h-screen object-cover"
         />
       </div>
+      <div className="pt-[30%] md:pt-[10%] ">
             <AniSearchBar />
             <AniMovieSuggestion />
+      </div>
         </div>
     );
     }

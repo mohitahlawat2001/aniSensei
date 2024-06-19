@@ -84,65 +84,64 @@ const Login = () => {
   
   return (
     <div>
-      <Header />
-      <div className="absolute">
-        <img
-          src={HomePageWallpaper}
-          alt="background"
-          className=""
+  <Header />
+  <div className="fixed w-full h-full">
+    <img
+      src={HomePageWallpaper}
+      alt="background"
+      className="w-full h-screen object-cover"
+    />
+  </div>
+  <div className=" absolute w-3/4 md:w-1/2 max-w-md p-8 bg-white bg-opacity-70 my-12 mx-auto left-0 right-0 rounded-lg text-black sm:my-24 sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
+    <form onSubmit={(e) => e.preventDefault()}>
+      <h1 className="text-2xl font-bold p-2">
+        {isSignedInForm ? "Sign In" : "Sign Up"}
+      </h1>
+      {!isSignedInForm && (
+        <input
+          ref={name}
+          type="text"
+          placeholder="Name"
+          className="w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-40 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 p-4"
         />
+      )}
+      <input
+        ref={email}
+        type="text"
+        placeholder="Email or phone number"
+        className="w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 p-4"
+      />
+      <input
+        ref={password}
+        type="password"
+        placeholder="Password"
+        className="w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 p-4"
+      />
+      {error && <p className="text-red-500 p-2">{error}</p>}
+      <button
+        className="w-full h-10 bg-blue-600 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 m-2 p-2 hover:bg-blue-700"
+        onClick={handleButtonCLick}
+      >
+        {isSignedInForm ? "Sign In" : "Sign Up"}
+      </button>
+      <div className="flex items-center p-2">
+        <input
+          type="checkbox"
+          className="cursor-pointer accent-pink-300 focus:accent-red-500"
+          onChange={handleRememberMe}
+        />
+        <p className="p-2">Remember me</p>
       </div>
-      <div className="absolute w-1/3 p-12 bg-white bg-opacity-70 my-36 mx-auto right-0 left-0 rounded-lg text-black">
-        <form 
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <h1 className="text-2xl  font-bold p-2 ">
-            {isSignedInForm ? "Sign In" : "Sign Up"}
-          </h1>
-          {!isSignedInForm && (
-            <input
-              ref={name}
-              type="text"
-              placeholder="Name"
-              className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-40 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 mx-2 p-4"
-            />
-          )}
-          <input
-            ref={email}
-            type="text"
-            placeholder="Email or phone number"
-            className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 mx-2 p-4"
-          />
-          <input
-            ref={password}
-            type="password"
-            placeholder="Password"
-            className=" w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 mx-2 p-4"
-          />
-          {error && <p className="text-red-500 p-2">{error}</p>}
-          <button 
-          className=" w-full h-10 bg-blue-600 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50  m-2 p-2 hover:bg-blue-600 "
-          onClick={handleButtonCLick}
-          >
-            {isSignedInForm ? "Sign In" : "Sign Up"}
-          </button>
-          <div className="flex items-center p-2">
-            <input 
-            type="checkbox" className="p-2 cursor-pointer accent-pink-300 focus:accent-red-500 "
-            onChange={handleRememberMe}
-             />
-            <p className="p-2">Remember me</p>
-          </div>
-          <hr className="border-white" />
+      <hr className="border-white" />
+      <p className="p-2 cursor-pointer" onClick={toggleForm}>
+        {isSignedInForm
+          ? "New to AniSensei? Sign up now."
+          : "Already a member? Sign in now."}
+      </p>
+    </form>
+  </div>
+</div>
 
-          <p className="p-2 cursor-pointer " onClick={toggleForm}>
-            {isSignedInForm
-              ? "New to AniSensei? Sign up now."
-              : "Already a member? Sign in now."}
-          </p>
-        </form>
-      </div>
-    </div>
   );
 };
 export default Login;

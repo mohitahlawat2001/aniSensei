@@ -11,7 +11,7 @@ const AniSearchBar = ()=>{
     
     return(
         <div className="w-screen pt-[10%] flex justify-center ">
-            <form className="w-1/2 grid grid-cols-12 p-6" onSubmit={(e) => e.preventDefault()}>
+            <form className=" w-full md:w-1/2 grid grid-cols-12 p-6" onSubmit={(e) => e.preventDefault()}>
                 <input
                     ref={searchText} 
                 type="text" placeholder={lang[langCode].AniSearchPlaceholder}

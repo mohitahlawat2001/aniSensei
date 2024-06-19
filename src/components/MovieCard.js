@@ -7,7 +7,7 @@ const MovieCard = (movie)=>{
     }
 
     return(
-        <div className="w-52 p-4 bg-blue-200 text-center rounded-lg shadow-lg m-4">
+        <div className="w-36  md:w-52 p-4 bg-blue-200 text-center rounded-lg shadow-lg m-4">
             <h2 className="font-bold text-xl" >{movie.movie.original_title}</h2>
             <img  className='rounded-lg p-2'
              src= {IMG_CDN + movie.movie.poster_path}

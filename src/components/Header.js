@@ -74,17 +74,17 @@ const Header = () => {
     dispatch(setLanguage(lang));
   }
   return (
-    <div className=" px-8 py-2 absolute bg-gradient-to-b from-black w-screen z-10 flex justify-between ">
+    <div className=" px-8 py-2 absolute bg-gradient-to-b from-black w-screen z-10 flex justify-between flex-col md:flex-row ">
       <Link to="/">
         <img
           src={Logo}
           alt="aniSensei Logo"
-          className="w-12 cursor-pointer  "
+          className="w-12 cursor-pointer mx-auto md:mx-0 py-2 md:py-0 "
         />
       </Link>
 
       {user && (
-        <div className="p-2 mx-2 flex ">
+        <div className="p-2 mx-2 flex justify-between ">
           {searchView && (
           <select className="bg-transparent text-white   px-2   rounded-lg font-bold" onChange={handleLanguageChange}>
             {SUPPORTED_LANGUAGES.map((lang) => (
@@ -102,7 +102,7 @@ const Header = () => {
           <img
             src={user?.photoURL}
             alt="User Profile"
-            className="w-12 h-12 rounded-full cursor-pointer "
+            className="hidden md:inline-block w-12 h-12 rounded-full cursor-pointer "
           />
           {/* sign out button */}
           <button
