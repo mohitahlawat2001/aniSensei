@@ -29,6 +29,9 @@ const Header = () => {
       dispatch(toggleSearchView("Home"));
       navigate("/browse");
     }
+    if (searchView === "Movie") {
+      dispatch(toggleSearchView("AniSensei"));
+    }
 
   }
 
@@ -91,7 +94,7 @@ const Header = () => {
 
       {user && (
         <div className="p-2 mx-2 flex justify-between ">
-          {searchView && (
+          {(searchView==='Movie'|| searchView==='AniSensei') && (
           <select className="bg-transparent text-white   px-2   rounded-lg font-bold" onChange={handleLanguageChange}>
             {SUPPORTED_LANGUAGES.map((lang) => (
               <option key={lang.identifer} value={lang.identifer} className="bg-black">

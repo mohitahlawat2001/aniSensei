@@ -22,7 +22,7 @@ const Movie = () => {
     
 
     useEffect(() => {
-        dispatch(toggleSearchView('AniSensei'));
+        dispatch(toggleSearchView('Movie'));
         getMovieDetails();
         getMovieRecommendations();
     }, [id, langCode]);
