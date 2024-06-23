@@ -22,4 +22,16 @@ export const SUPPORTED_LANGUAGES = [{
 {
   identifer: 'hi',
   name: 'Hindi',
+},
+{
+  identifer: 'ja',
+  name: 'Japanese',
 }];
+
+
+export const langConvert = {
+  en: 'en-US',
+  es: 'es-ES',
+  hi: 'hi-IN',
+  ja: 'ja-JP',
+}

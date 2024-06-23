@@ -10,6 +10,10 @@ const lang ={
     hi:{
         search: 'खोज',
         AniSearchPlaceholder: 'आज आप क्या देखना चाहेंगे?',
+    },
+    ja: {
+        search: 'サーチ',
+        AniSearchPlaceholder: '今日何を見たいですか？',
     }
 }
 

@@ -10,6 +10,7 @@ import { removeUser, addUser } from "../utils/userSlice";
 import { toggleSearchView } from "../utils/aniSenseiSlice";
 import { setLanguage } from "../utils/configSlice";
 
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
@@ -21,7 +22,14 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const handleAniSenseiClick = () => {
-    dispatch(toggleSearchView());
+    if (searchView === "Home") {
+      dispatch(toggleSearchView("AniSensei"));
+    }
+    if (searchView === "AniSensei") {
+      dispatch(toggleSearchView("Home"));
+      navigate("/browse");
+    }
+
   }
 
   useEffect(() => {
@@ -39,12 +47,10 @@ const Header = () => {
             photoURL: photoURL,
           })
         );
-        navigate("/browse");
+        // navigate("/browse");
         // ...
       } else {
-        // User is signed out
-        // ...
-
+        
         dispatch(removeUser());
         navigate("/");
       }
@@ -58,7 +64,7 @@ const Header = () => {
       .then(() => {
         // Sign-out successful.
         // console.log("Sign-out successful.");
-        // dispatch(removeUser());
+        dispatch(removeUser());
     
       })
       .catch((error) => {
@@ -70,7 +76,7 @@ const Header = () => {
 
   const handleLanguageChange = (e) => {
     const lang = e.target.value;
-    console.log(lang);
+    // console.log(lang);
     dispatch(setLanguage(lang));
   }
   return (
@@ -97,7 +103,9 @@ const Header = () => {
           <button 
             onClick={handleAniSenseiClick}
           className="bg-blue-600 text-white px-4  mx-4 rounded-lg font-bold hover:animate-pulse ">
-            {searchView ? "Home" : "AniSensei"}
+          <Link to="/browse">
+            {searchView === "Home" ? "AniSensei" : "Home"}
+          </Link>
           </button>
           <img
             src={user?.photoURL}

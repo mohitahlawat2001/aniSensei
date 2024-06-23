@@ -16,7 +16,7 @@ const Browse = () => {
     return (
         <div >
             <Header/>
-            {searchView ? <AniSensei/>:
+            {searchView==='AniSensei' ? <AniSensei/>:
             <>
             <MainContainer/>
             <SecondaryContainer/>

@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const aniSenseiSlice = createSlice({
     name: 'aniSensei',
     initialState: {
-        searchView: true,
+        searchView: 'Home',
         resultMovie: null,
         resultName:null,
     },
     reducers: {
         toggleSearchView: (state, action) => {
-            state.searchView = !state.searchView;
+            state.searchView = action.payload;
         },
         addResultMovie: (state, action) => {
             const {resultName, resultMovie} = action.payload;
