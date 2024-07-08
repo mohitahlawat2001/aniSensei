@@ -1,7 +1,7 @@
 import { IMG_CDN } from '../utils/constants';
 import { Link } from 'react-router-dom';
 import { database } from '../utils/firebase';
-import {set,ref, remove} from 'firebase/database';
+import {set,ref, remove, get} from 'firebase/database';
 import { useSelector, useDispatch } from 'react-redux';
 import { addStarredMovies, removeStarredMovies } from '../utils/starredSlice';
 
@@ -9,8 +9,8 @@ const MovieCard = (movie)=>{
     // console.log(movie);
     const dispatch = useDispatch();
     const user = useSelector((state)=>state.user);
-    const starredMovies = useSelector((state)=>state.starred.starredMovies);
-    const handleStar = ()=>{
+    // const starredMovies = useSelector((state)=>state.starred.starredMovies);
+    const handleStar = async ()=>{
         if(user){
             console.log('User is signed in');
             const dbRef = ref(database,'users/'+user?.uid+'/'+movie?.movie?.id);
@@ -21,8 +21,13 @@ const MovieCard = (movie)=>{
                 vote_average: movie.movie.vote_average || 0, // Provide a fallback value or handle undefined
                 release_date: movie.movie.release_date || 'Unknown Date' // Provide a fallback value for release_date
             };
-            if(starredMovies.find((m)=>m.id === movie?.movie.id)){
-                dispatch(removeStarredMovies(movie?.movie.id));
+            const isMovieStarred = await get(ref(database, 'users/' + user?.uid + '/' + movie?.movie?.id)).then((snapshot) => snapshot.exists());
+            
+            // ref(database,'users/'+user?.uid+'/'+movie?.movie?.id).once('value').then((snapshot)=>snapshot.exists());
+
+
+            if(isMovieStarred){
+                // dispatch(removeStarredMovies(movie?.movie.id));
                 remove(dbRef).then(()=>{
                     console.log('Data removed successfully');
                 }).catch((error)=>{
@@ -30,7 +35,7 @@ const MovieCard = (movie)=>{
                 });
 
             }else
-            if(movie!==null){
+            {
 
                 set(dbRef,movieData).then(()=>{
                     dispatch(addStarredMovies(

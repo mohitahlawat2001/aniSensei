@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "./Header";
 import MovieList from "./MovieList";
+import HomePageWallpaper from "../assets/wall4.png";
+
 // import { addStarredMovies } from "../utils/starredSlice";
 
 const StarredMovies = () => {
@@ -20,16 +22,29 @@ const StarredMovies = () => {
                 const movies = Object.values(data);
                 console.log(movies);
                 // dispatch(addStarredMovies(movies));
-                setStarredMovie(movies);
-            }
+        
+            setStarredMovie(movies);
+                
+            }else{
+                setStarredMovie([]);}
         });
 
     }, []);
     return (
         <div>
         <Header/>
-        <h2 className="text-5xl pt-[10%] font-bold text-center">Starred Movies</h2>
-        <MovieList title="Starred Movies" movieList={starredMovie} />
+    <div className="fixed w-full h-full -z-10">
+    <img
+      src={HomePageWallpaper}
+      alt="background"
+      className="w-full h-screen object-cover"
+    />
+  </div>
+        <div className=" bg-white py-[30%] md:p-[10%] mt-[45%] md:my-[20%] mx-[10%] md:mx-[20%] absolute bg-opacity-70 ">
+
+        <h2 className="text-5xl  font-bold text-center">Starred Movies</h2>
+        <MovieList title="" movieList={starredMovie} />
+        </div>
         </div>
     );
     };

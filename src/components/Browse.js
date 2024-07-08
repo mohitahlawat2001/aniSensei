@@ -17,10 +17,10 @@ const Browse = () => {
         <div >
             <Header/>
             {searchView==='AniSensei' ? <AniSensei/>:
-            <>
+            <div className="bg-black w-screen h-screen ">
             <MainContainer/>
             <SecondaryContainer/>
-              </>
+              </div>
 }
         </div>
     )

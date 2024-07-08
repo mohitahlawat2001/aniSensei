@@ -14,7 +14,8 @@ import { toggleStarred } from "../utils/starredSlice";
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket  } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 
 const Header = () => {
@@ -132,8 +133,8 @@ const Header = () => {
         {starred && (
             <button
               onClick={handleStarredClick}
-          className="bg-blue-600 text-white px-4  mx-4 rounded-lg font-bold hover:animate-pulse ">
-              Starred
+              className="w-12 h-12 mx-2">
+                <FontAwesomeIcon icon={faBookmark} size="2xl" style={{color: "#74C0FC",}} />          
             </button>
         )}
           {/* sign out button */}
