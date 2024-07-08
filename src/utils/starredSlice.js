@@ -4,14 +4,17 @@ const starredSlice = createSlice({
     name: 'starred',
     initialState: {
         starred: true,
-        starredMovies: [],
+        starredMovies: {}
     },
     reducers: {
         addStarredMovies: (state, action) => {
-            state.starredMovies = [...state.starredMovies, action.payload];
+            state.starredMovies = {...state.starredMovies, ...action.payload};
+        },
+        addStarredMovie: (state, action) => {
+            state.starredMovies = {...state.starredMovies, [action.payload.id]: action.payload};
         },
         removeStarredMovies: (state, action) => {
-            state.starredMovies.pop(action.payload);
+            delete state.starredMovies[action.payload];
         },
         toggleStarred: (state, action) => {
             state.starred = action.payload;
@@ -19,6 +22,6 @@ const starredSlice = createSlice({
     }
 });
 
-export const { addStarredMovies, removeStarredMovies , toggleStarred } = starredSlice.actions;
+export const { addStarredMovies, removeStarredMovies , toggleStarred , addStarredMovie } = starredSlice.actions;
 
 export default starredSlice.reducer;

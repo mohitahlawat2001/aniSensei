@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { database } from '../utils/firebase';
 import {set,ref, remove, get} from 'firebase/database';
 import { useSelector, useDispatch } from 'react-redux';
-import { addStarredMovies, removeStarredMovies } from '../utils/starredSlice';
+import { addStarredMovie, removeStarredMovies } from '../utils/starredSlice';
 
 const MovieCard = (movie)=>{
     // console.log(movie);
     const dispatch = useDispatch();
     const user = useSelector((state)=>state.user);
-    // const starredMovies = useSelector((state)=>state.starred.starredMovies);
+    const starredMovies = useSelector((state)=>state.starred.starredMovies);
     const handleStar = async ()=>{
         if(user){
             console.log('User is signed in');
@@ -27,8 +27,9 @@ const MovieCard = (movie)=>{
 
 
             if(isMovieStarred){
-                // dispatch(removeStarredMovies(movie?.movie.id));
+                dispatch(removeStarredMovies(movie?.movie.id));
                 remove(dbRef).then(()=>{
+                    console.log(starredMovies);
                     console.log('Data removed successfully');
                 }).catch((error)=>{
                     console.error('Error removing data:', error);
@@ -38,9 +39,10 @@ const MovieCard = (movie)=>{
             {
 
                 set(dbRef,movieData).then(()=>{
-                    dispatch(addStarredMovies(
+                    dispatch(addStarredMovie(
                         movieData
                     ));
+                    console.log(starredMovies);
                     console.log('Data written successfully');
                 }).catch((error)=>{
                     console.error('Error writing data:', error);

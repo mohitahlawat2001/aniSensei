@@ -10,7 +10,7 @@ import HomePageWallpaper from "../assets/wall4.png";
 
 const StarredMovies = () => {
     const starredMovies = useSelector((state) => state.starred.starredMovies);
-    const [starredMovie, setStarredMovie] = useState(starredMovies);
+    const [starredMovie, setStarredMovie] = useState(Object.values(starredMovies));
     // const dispatch = useDispatch();
 
     const user = useSelector((state) => state.user);
@@ -26,6 +26,7 @@ const StarredMovies = () => {
             setStarredMovie(movies);
                 
             }else{
+            
                 setStarredMovie([]);}
         });
 
@@ -43,7 +44,7 @@ const StarredMovies = () => {
         <div className=" bg-white py-[30%] md:p-[10%] mt-[45%] md:my-[20%] mx-[10%] md:mx-[20%] absolute bg-opacity-70 ">
 
         <h2 className="text-5xl  font-bold text-center">Starred Movies</h2>
-        <MovieList title="" movieList={starredMovie} />
+        <MovieList title="Starred Movie" movieList={starredMovie} />
         </div>
         </div>
     );
