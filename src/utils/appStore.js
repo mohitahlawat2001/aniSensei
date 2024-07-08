@@ -3,6 +3,7 @@ import userSlice from "./userSlice";
 import movieSlice from "./movieSlice";
 import aniSenseiSlice from "./aniSenseiSlice";
 import configSlice from "./configSlice";
+import starredSlice from "./starredSlice";
 
 const appStore = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ const appStore = configureStore({
         movies : movieSlice,
         aniSensei : aniSenseiSlice,
         config : configSlice,
+        starred : starredSlice,
     }
 });
 

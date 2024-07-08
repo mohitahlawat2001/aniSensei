@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { removeUser, addUser } from "../utils/userSlice";
 import { toggleSearchView } from "../utils/aniSenseiSlice";
 import { setLanguage } from "../utils/configSlice";
+import { toggleStarred } from "../utils/starredSlice";
+
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,8 +20,14 @@ import { SUPPORTED_LANGUAGES } from "../utils/constants";
 const Header = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const starred = useSelector((state) => state.starred.starred);
   const searchView = useSelector((state) => state.aniSensei.searchView);
   const dispatch = useDispatch();
+  
+  const handleStarredClick = () => {
+    dispatch(toggleStarred(!starred));
+    navigate("/starred");
+  }
 
   const handleAniSenseiClick = () => {
     if (searchView === "Home") {
@@ -32,7 +40,9 @@ const Header = () => {
     if (searchView === "Movie") {
       dispatch(toggleSearchView("AniSensei"));
     }
-
+    if(!starred){
+      dispatch(toggleStarred(true));
+    }
   }
 
   useEffect(() => {
@@ -84,13 +94,17 @@ const Header = () => {
   }
   return (
     <div className=" px-8 py-2 absolute bg-gradient-to-b from-black w-screen z-10 flex justify-between flex-col md:flex-row ">
-      <Link to="/">
+      <button onClick={()=>{
+        dispatch(toggleSearchView("Home"));
+        dispatch(toggleStarred(true));
+        navigate("/browse");
+      }}>
         <img
           src={Logo}
           alt="aniSensei Logo"
           className="w-12 cursor-pointer mx-auto md:mx-0 py-2 md:py-0 "
         />
-      </Link>
+      </button>
 
       {user && (
         <div className="p-2 mx-2 flex justify-between ">
@@ -115,6 +129,13 @@ const Header = () => {
             alt="User Profile"
             className="hidden md:inline-block w-12 h-12 rounded-full cursor-pointer "
           />
+        {starred && (
+            <button
+              onClick={handleStarredClick}
+          className="bg-blue-600 text-white px-4  mx-4 rounded-lg font-bold hover:animate-pulse ">
+              Starred
+            </button>
+        )}
           {/* sign out button */}
           <button
             onClick={() => handleSignOut()}

@@ -1,12 +1,16 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Header from "./Header";
 import { checkValidateData } from "../utils/checkValidateData";
 import HomePageWallpaper from "../assets/wall4.png";
 import { createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { addStarredMovies } from "../utils/starredSlice";
+import { onValue,ref } from "firebase/database";
+import { database } from "../utils/firebase";
+
 const Login = () => {
   const navigate = useNavigate();
   const [isSignedInForm, setIsSignedInForm] = useState(true);
@@ -17,6 +21,24 @@ const Login = () => {
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+
+    const user = useSelector((state) => state.user);
+    useEffect(() => {
+      const dbRef = ref(database,'users/'+user?.uid);
+      onValue(dbRef,(snapshot)=>{
+          const data = snapshot.val();
+          if(data){
+              const movies = Object.values(data);
+              // console.log(movies);
+              movies.map((movie)=>
+                (dispatch(addStarredMovies(movie)))
+              );
+              // setStarredMovie(movies);
+          }
+      });
+
+  }, [user]);
+
 
   const toggleForm = () => {
     setIsSignedInForm(!isSignedInForm);
@@ -34,7 +56,7 @@ const Login = () => {
     createUserWithEmailAndPassword(auth, email.current.value , password.current.value)
   .then((userCredential) => {
     // Signed up 
-    const user = userCredential.user;
+    // const user = userCredential.user;
     updateProfile(auth.currentUser, {
       displayName: name.current.value , photoURL: "https://avatars.githubusercontent.com/u/65100859?v=4"
     }).then(() => {
@@ -48,7 +70,7 @@ const Login = () => {
       // ...
       setError(error.message);
     });
-    console.log(user);
+    // console.log(user);
     navigate("/browse");
     // ...
   })
@@ -65,7 +87,8 @@ const Login = () => {
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user);
+    // console.log(user);
+
     navigate("/browse");
     // ...
   })

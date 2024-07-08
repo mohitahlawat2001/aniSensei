@@ -1,7 +1,51 @@
 import { IMG_CDN } from '../utils/constants';
 import { Link } from 'react-router-dom';
+import { database } from '../utils/firebase';
+import {set,ref, remove} from 'firebase/database';
+import { useSelector, useDispatch } from 'react-redux';
+import { addStarredMovies, removeStarredMovies } from '../utils/starredSlice';
+
 const MovieCard = (movie)=>{
     // console.log(movie);
+    const dispatch = useDispatch();
+    const user = useSelector((state)=>state.user);
+    const starredMovies = useSelector((state)=>state.starred.starredMovies);
+    const handleStar = ()=>{
+        if(user){
+            console.log('User is signed in');
+            const dbRef = ref(database,'users/'+user?.uid+'/'+movie?.movie?.id);
+            const movieData = {
+                id: movie.movie.id,
+                title: movie.movie.original_title || 'Unknown Title', // Provide a fallback value for title
+                poster_path: movie.movie.poster_path || '', // Provide a fallback value or handle undefined
+                vote_average: movie.movie.vote_average || 0, // Provide a fallback value or handle undefined
+                release_date: movie.movie.release_date || 'Unknown Date' // Provide a fallback value for release_date
+            };
+            if(starredMovies.find((m)=>m.id === movie?.movie.id)){
+                dispatch(removeStarredMovies(movie?.movie.id));
+                remove(dbRef).then(()=>{
+                    console.log('Data removed successfully');
+                }).catch((error)=>{
+                    console.error('Error removing data:', error);
+                });
+
+            }else
+            if(movie!==null){
+
+                set(dbRef,movieData).then(()=>{
+                    dispatch(addStarredMovies(
+                        movieData
+                    ));
+                    console.log('Data written successfully');
+                }).catch((error)=>{
+                    console.error('Error writing data:', error);
+                });
+            }
+
+        }else{
+            console.log('User is not signed in');
+        }
+    }
 
     if(!movie.movie.poster_path){
         return null;
@@ -18,6 +62,9 @@ const MovieCard = (movie)=>{
             {/* <p>{movie.movie.overview}</p> */}
             <p>Rating: {movie.movie.vote_average}</p>
             <p>Release Date: {movie.movie.release_date}</p>
+            {/* golden star button */}
+            <button onClick={handleStar} className="text-yellow-400">⭐</button>
+
         </div>
     )
 }
