@@ -41,10 +41,10 @@ const StarredMovies = () => {
       className="w-full h-screen object-cover"
     />
   </div>
-        <div className=" bg-white py-[30%] md:p-[10%] mt-[45%] md:my-[20%] mx-[10%] md:mx-[20%] absolute bg-opacity-70 ">
+        <div className=" w-2/3 bg-white py-[30%] md:p-[2%] mt-[45%] md:my-[20%] mx-[10%] md:mx-[15%] flex justify-center flex-col absolute bg-opacity-70 ">
 
         <h2 className="text-5xl  font-bold text-center">Starred Movies</h2>
-        <MovieList title="Starred Movie" movieList={starredMovie} />
+        <MovieList title="" movieList={starredMovie} />
         </div>
         </div>
     );
