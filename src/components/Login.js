@@ -115,7 +115,7 @@ const Login = () => {
       className="w-full h-screen object-cover"
     />
   </div>
-  <div className=" absolute w-3/4 md:w-1/2 max-w-md p-8 bg-white bg-opacity-70 my-20 md:my-12 mx-auto left-0 right-0 rounded-lg text-black sm:my-24 sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
+  <div className=" absolute w-3/4 md:w-1/2 max-w-md p-8 bg-white bg-opacity-70 my-20 mx-auto left-0 right-0 rounded-lg text-black sm:my-24 sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
     <form onSubmit={(e) => e.preventDefault()}>
       <h1 className="text-2xl font-bold p-2">
         {isSignedInForm ? "Sign In" : "Sign Up"}

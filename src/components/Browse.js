@@ -6,6 +6,7 @@ import SecondaryContainer from "./SecondaryContainer";
 import AniSensei from "./AniSensei";
 
 import { useSelector } from "react-redux";
+import useTvList from "../hooks/useTvList";
 
 const Browse = () => {
     const searchView = useSelector((state) => state.aniSensei.searchView);
@@ -13,6 +14,10 @@ const Browse = () => {
     useMoviesList('popular');
     useMoviesList('top_rated');
     useMoviesList('upcoming');
+    useTvList('popular');
+    useTvList('top_rated');
+    useTvList('airing_today');
+    useTvList('on_the_air');
     return (
         <div >
             <Header/>
@@ -20,7 +25,7 @@ const Browse = () => {
             <div className="bg-black w-screen h-screen ">
             <MainContainer/>
             <SecondaryContainer/>
-              </div>
+            </div>
 }
         </div>
     )

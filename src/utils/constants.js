@@ -11,6 +11,8 @@ export const IMG_CDN = 'https://image.tmdb.org/t/p/w500/';
 
 export const MOVIE_LIST = (type) => `https://api.themoviedb.org/3/movie/${type}?language=en-US&page=1`;
 
+export const TV_LIST = (type) => `https://api.themoviedb.org/3/tv/${type}?language=en-US&page=1`;
+
 export const SUPPORTED_LANGUAGES = [{
   identifer: 'en',
   name: 'English',
