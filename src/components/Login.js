@@ -21,6 +21,7 @@ const Login = () => {
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
+  const photoURL = useRef(null);
 
     const user = useSelector((state) => state.user);
     useEffect(() => {
@@ -58,7 +59,7 @@ const Login = () => {
     // Signed up 
     // const user = userCredential.user;
     updateProfile(auth.currentUser, {
-      displayName: name.current.value , photoURL: "https://avatars.githubusercontent.com/u/65100859?v=4"
+      displayName: name.current.value , photoURL: photoURL.current.value || "https://avatars.githubusercontent.com/u/65100859?v=4"
     }).then(() => {
       // Profile updated!
       // ...
@@ -128,6 +129,15 @@ const Login = () => {
           className="w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-40 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 p-4"
         />
       )}
+      {!isSignedInForm && (
+        <input
+          ref={photoURL}
+          type="text"
+          placeholder="Photo URL"
+          className="w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-40 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 p-4"
+        />
+      )}
+
       <input
         ref={email}
         type="text"
