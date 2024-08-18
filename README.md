@@ -18,10 +18,11 @@ AniSensei is a feature-rich React application designed to provide users with the
 - **Main Movie:** Display of the main highlighted movie with background trailer.
 - **Trailer in Background:** Embedded YouTube video for movie trailers with autoplay and mute functionality.
 - **Title & Description:** Detailed information about the main movie.
-- **Movie Suggestions:** Personalized movie suggestions based on user preferences.
-- **Movie Lists:** Multiple movie lists to explore different categories.
-- **AniSensei Search Bar:** Powerful search functionality for discovering new movies.
+- **Movie or TvShow Suggestions:** Personalized movie suggestions based on user preferences.
+- **Movie/TvShow Lists:** Multiple movie lists to explore different categories.
+- **AniSensei Search Bar:** Powerful search functionality for discovering new movies or TvShow , just write what is on your mind.
 - **Movie Suggestions:** Tailored movie suggestions based on search results.
+
 
 ## Setup and Installation
 
