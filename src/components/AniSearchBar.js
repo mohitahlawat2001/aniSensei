@@ -9,21 +9,16 @@ const AniSearchBar = ()=>{
     const langCode = useSelector((state) => state.config.lang);
     const handleSearch =  useAniSensei(searchText);
 
-    const preBuiltQueries = [
-        { label: "Suggest motivational animes", query: "Suggest some motivational animes" },
-        { label: "Most popular animes of all time", query: "Which are the most popular animes of all time?" },
-        { label: "Action Animes", query: "Best action animes of all time" },
-        { label: "Romantic Animes", query: "Recommend some romantic animes" },
-    ];
+    const preBuiltQueries = lang[langCode].preBuiltQueries;
 
     const handlePreBuiltQueryClick = (query) => {
         searchText.current.value = query;
         handleSearch();
     };
-    
+
     return(
         <div className="w-screen pt-[10%] flex flex-col items-center ">
-            <form className=" w-full md:w-1/2 grid grid-cols-12 p-6" onSubmit={(e) => e.preventDefault()}>
+            <form className=" w-full md:w-3/4 grid grid-cols-12 p-6" onSubmit={(e) => e.preventDefault()}>
                 <input
                     ref={searchText} 
                     type="text" placeholder={lang[langCode].AniSearchPlaceholder}
@@ -46,7 +41,7 @@ const AniSearchBar = ()=>{
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default AniSearchBar;
