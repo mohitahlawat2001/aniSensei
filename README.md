@@ -53,6 +53,11 @@ AniSensei is a feature-rich React application designed to provide users with the
    REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
    REACT_APP_TMDB_API_KEY=your_tmdb_api_key
    REACT_APP_GEMINI_API_KEY=your_gemini_api_key
+   REACT_APP_FIREBASE_PROJECT_ID=your_firebase_project_id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+   REACT_APP_FIREBASE_APP_ID=your_firebase_app_id
+   REACT_APP_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
    ```
 
 4. Start the development server:
