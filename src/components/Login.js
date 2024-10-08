@@ -123,7 +123,7 @@ const Login = () => {
           className="w-full h-screen object-cover"
         />
       </div>
-      <div className=" absolute w-3/4 md:w-1/2 max-w-md p-8 bg-white bg-opacity-70 my-20 mx-auto left-0 right-0 rounded-lg text-black sm:my-24 sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
+      <div className=" absolute w-3/4 md:w-1/2 max-w-md p-8 bg-white bg-opacity-80 my-20 mx-auto left-0 right-0 rounded-lg text-black sm:my-24 sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
         <form onSubmit={(e) => e.preventDefault()}>
           <h1 className="text-2xl font-bold p-2">
             {isSignedInForm ? "Sign In" : "Sign Up"}
@@ -168,7 +168,7 @@ const Login = () => {
           </div>
           {error && <p className="text-red-500 p-2">{error}</p>}
           <button
-            className="w-full h-10 bg-blue-600 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 m-2 p-2 hover:bg-blue-700"
+            className="w-full h-10 bg-blue-600 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 p-2 hover:bg-blue-700"
             onClick={handleButtonCLick}
           >
             {isSignedInForm ? "Sign In" : "Sign Up"}
