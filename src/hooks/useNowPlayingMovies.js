@@ -13,6 +13,7 @@ const nowPlayingMovies = useSelector((state) => state.movies.nowPlayingMovies)
     useEffect(() => {
         !nowPlayingMovies &&
         getNowPlaying()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getNowPlaying = async () => {

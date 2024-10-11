@@ -19,6 +19,7 @@ const useMoviesList = (type) => {
             return;
         }
         getPopularMovies()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getPopularMovies = async () => {

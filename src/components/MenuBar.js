@@ -1,38 +1,39 @@
-import Logo from "../assets/wall3.png";
-import MenuBar from "./MenuBar";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeUser, addUser } from "../utils/userSlice";
+import { removeUser } from "../utils/userSlice";
 import { toggleSearchView } from "../utils/aniSenseiSlice";
 import { setLanguage } from "../utils/configSlice";
 import { toggleStarred } from "../utils/starredSlice";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faRightFromBracket,
   faMagnifyingGlass,
   faHouse,
+  faBars,
+  faXmark,
+  faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 
-const Header = () => {
+const MenuBar = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const starred = useSelector((state) => state.starred.starred);
   const searchView = useSelector((state) => state.aniSensei.searchView);
-  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
+  //handle bookmarks
   const handleStarredClick = () => {
     dispatch(toggleStarred(!starred));
     navigate("/starred");
   };
 
+  //toggle between searching for anime, movies or navigating back to the home page
   const handleAniSenseiClick = () => {
     if (searchView === "Home") {
       dispatch(toggleSearchView("AniSensei"));
@@ -49,32 +50,7 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    const unsubcribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const { uid, email, displayName, photoURL } = user;
-
-        dispatch(
-          addUser({
-            uid: uid,
-            email: email,
-            displayName: displayName,
-            photoURL: photoURL,
-          })
-        );
-        // navigate("/browse");
-        // ...
-      } else {
-        dispatch(removeUser());
-        navigate("/");
-      }
-    });
-
-    return () => unsubcribe();
-  }, [dispatch, navigate]);
-
+  //   handle the sign out process
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -85,30 +61,38 @@ const Header = () => {
       });
   };
 
+  // handle the onchange event for the select input
   const handleLanguageChange = (e) => {
     const lang = e.target.value;
     dispatch(setLanguage(lang));
   };
 
   return (
-    <div className="fixed px-7 md:px-16 py-2 bg-gradient-to-b from-blue-600 bg-black w-screen z-10 flex justify-between items-center md:flex-row bg">
-      <button
-        onClick={() => {
-          dispatch(toggleSearchView("Home"));
-          dispatch(toggleStarred(true));
-          navigate("/browse");
-        }}
-      >
-        <img
-          src={Logo}
-          alt="aniSensei Logo"
-          className="w-12 cursor-pointer mx-auto md:mx-0 py-2 md:py-0 "
-        />
-      </button>
-
-      {user && (
-        <>
-          <div className="hidden p-2 mx-2 md:flex justify-between gap-8 text-lg">
+    <>
+      <div className="md:hidden">
+        {!open ? (
+          <FontAwesomeIcon
+            icon={faBars}
+            size="2x"
+            className="text-[#74C0FC] cursor-pointer"
+            onClick={() => {
+              setOpen(true);
+            }}
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faXmark}
+            size="2x"
+            className="text-[#74C0FC] cursor-pointer"
+            onClick={() => {
+              setOpen(false);
+            }}
+          />
+        )}
+        {open && (
+          <ul className="absolute flex flex-col gap-5 px-7 py-3 text-lg font-semibold right-0 top-16 h-[calc(100vh-7rem)] w-[calc(100vw-5rem)] bg-gradient-to-b from-black bg-blue-600 text-white rounded-lg duration-500">
+            <h2 className="font-extrabold">AniSensei</h2>
+            <hr className="bg-[#74C0FC]" />
             {(searchView === "Movie" || searchView === "AniSensei") && (
               <select
                 className="bg-transparent text-white   px-2   rounded-lg font-bold"
@@ -125,10 +109,7 @@ const Header = () => {
                 ))}
               </select>
             )}
-            <button
-              onClick={handleAniSenseiClick}
-              className="text-white font-bold cursor-pointer hover:border-b-2 hover:border-[#74C0FC]"
-            >
+            <li className="" onClick={handleAniSenseiClick}>
               <Link to="/browse">
                 {searchView === "Home" ? (
                   <FontAwesomeIcon
@@ -146,20 +127,19 @@ const Header = () => {
 
                 {searchView === "Home" ? "Discover Anime" : "Home"}
               </Link>
-            </button>
-            <div className="flex items-center gap-2 font-bold text-white cursor-pointer hover:border-b-2 hover:border-[#74C0FC]">
-              <img
-                src={user?.photoURL}
-                alt=""
-                className="hidden md:inline-block w-6 h-6 rounded-full cursor-pointer font-bold"
+            </li>
+            <li className="flex items-center gap-4 font-bold text-white cursor-pointer">
+              <FontAwesomeIcon
+                icon={faPerson}
+                size="lg"
+                className="text-[#74C0FC]"
               />
               <p>Profile</p>
-            </div>
-
+            </li>
             {starred && (
-              <button
+              <li
                 onClick={handleStarredClick}
-                className="flex items-center gap-2 text-white font-bold cursor-pointer hover:border-b-2 hover:border-[#74C0FC]"
+                className="flex items-center gap-3 text-white font-bold cursor-pointer"
               >
                 <FontAwesomeIcon
                   icon={faBookmark}
@@ -167,13 +147,13 @@ const Header = () => {
                   className="text-[#74C0FC]"
                 />
                 <p>Bookmarks</p>
-              </button>
+              </li>
             )}
 
             {/* sign out button */}
-            <button
+            <li
               onClick={() => handleSignOut()}
-              className="flex items-center gap-2 text-white font-bold cursor-pointer hover:border-b-2 hover:border-[#74C0FC]"
+              className="flex items-center gap-3 text-white font-bold cursor-pointer"
             >
               <FontAwesomeIcon
                 icon={faRightFromBracket}
@@ -181,13 +161,12 @@ const Header = () => {
                 className="text-[#74C0FC]"
               />
               <p>Sign Out</p>
-            </button>
-          </div>
-          <MenuBar/>
-        </>
-      )}
-    </div>
+            </li>
+          </ul>
+        )}
+      </div>
+    </>
   );
 };
 
-export default Header;
+export default MenuBar;
