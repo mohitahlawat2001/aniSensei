@@ -21,6 +21,7 @@ const useMovieTrailer = (movie_id) => {
       useEffect(() => {
         !trailerVideo &&
         movieVideo();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 }
 

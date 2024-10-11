@@ -25,6 +25,7 @@ const Movie = () => {
         dispatch(toggleSearchView('Movie'));
         getMovieDetails();
         getMovieRecommendations();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id, langCode]);
 
     const getMovieRecommendations = async () => {

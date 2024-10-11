@@ -41,7 +41,7 @@ const Login = () => {
           }
       });
 
-  }, [user]);
+  }, [dispatch, user]);
 
 
   const toggleForm = () => {
@@ -93,8 +93,8 @@ const Login = () => {
     // console.log("Sign Up");
     signInWithEmailAndPassword(auth, email.current.value , password.current.value)
   .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
+    // Signed in 
+    //const user = userCredential.user;
     // console.log(user);
 
     navigate("/browse");
