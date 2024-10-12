@@ -1,14 +1,15 @@
+import React from "react";
 import { useRef, useState, useEffect } from "react";
 import Header from "./Header";
 import { checkValidateData } from "../utils/checkValidateData";
 import HomePageWallpaper from "../assets/wall4.png";
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch ,useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { addStarredMovies } from "../utils/starredSlice";
-import { onValue,ref } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import { database } from "../utils/firebase";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -26,20 +27,20 @@ const Login = () => {
   const password = useRef(null);
   const photoURL = useRef(null);
 
-    const user = useSelector((state) => state.user);
-    useEffect(() => {
-      const dbRef = ref(database,'users/'+user?.uid);
-      onValue(dbRef,(snapshot)=>{
-          const data = snapshot.val();
-          if(data){
-              const movies = Object.values(data);
-              // console.log(movies);
-              movies.map((movie)=>
-                (dispatch(addStarredMovies(movie)))
-              );
-              // setStarredMovie(movies);
-          }
-      });
+  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    const dbRef = ref(database, 'users/' + user?.uid);
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const movies = Object.values(data);
+        // console.log(movies);
+        movies.map((movie) =>
+          (dispatch(addStarredMovies(movie)))
+        );
+        // setStarredMovie(movies);
+      }
+    });
 
   }, [user]);
 
@@ -53,61 +54,61 @@ const Login = () => {
   };
 
   const handleButtonCLick = () => {
-  //   console.log(email.current.value);
-  // console.log(password.current.value);
-  const msg = checkValidateData( name?.current?.value ,email.current.value, password.current.value);
-  setError(msg);
-  if (msg) return;
+    //   console.log(email.current.value);
+    // console.log(password.current.value);
+    const msg = checkValidateData(name?.current?.value, email.current.value, password.current.value);
+    setError(msg);
+    if (msg) return;
 
-  if (!isSignedInForm) {
-    // console.log("Sign In");
-    createUserWithEmailAndPassword(auth, email.current.value , password.current.value)
-  .then((userCredential) => {
-    // Signed up
-    // const user = userCredential.user;
-    updateProfile(auth.currentUser, {
-      displayName: name.current.value , photoURL: photoURL.current.value || "https://avatars.githubusercontent.com/u/65100859?v=4"
-    }).then(() => {
-      // Profile updated!
-      // ...
-      const { uid, email ,displayName,photoURL } = auth.currentUser;
-      dispatch(addUser({uid:uid,email:email,displayName:displayName,photoURL:photoURL}));
-      navigate("/browse");
-    }).catch((error) => {
-      // An error occurred
-      // ...
-      setError(error.message);
-    });
-    // console.log(user);
-    navigate("/browse");
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-    setError(errorMessage+errorCode);
-  });
-  }
-  else {
-    // console.log("Sign Up");
-    signInWithEmailAndPassword(auth, email.current.value , password.current.value)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // console.log(user);
+    if (!isSignedInForm) {
+      // console.log("Sign In");
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed up
+          // const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value, photoURL: photoURL.current.value || "https://avatars.githubusercontent.com/u/65100859?v=4"
+          }).then(() => {
+            // Profile updated!
+            // ...
+            const { uid, email, displayName, photoURL } = auth.currentUser;
+            dispatch(addUser({ uid: uid, email: email, displayName: displayName, photoURL: photoURL }));
+            navigate("/browse");
+          }).catch((error) => {
+            // An error occurred
+            // ...
+            setError(error.message);
+          });
+          // console.log(user);
+          navigate("/browse");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setError(errorMessage + errorCode);
+        });
+    }
+    else {
+      // console.log("Sign Up");
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // console.log(user);
 
-    navigate("/browse");
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // console.log(errorMessage+errorCode);
-    setError(errorMessage+errorCode);
-  });
+          navigate("/browse");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // console.log(errorMessage+errorCode);
+          setError(errorMessage + errorCode);
+        });
+    }
   }
-}
 
   const handleRememberMe = () => {
     setRememberMe(!rememberMe);
@@ -162,9 +163,9 @@ const Login = () => {
               type="checkbox"
               title="Show Password"
               onClick={ShowPassword}>
-                  {showPassword && <FontAwesomeIcon icon={faEye} />}
-                  {!showPassword && <FontAwesomeIcon icon={faEyeSlash} />}
-              </button>
+              {showPassword && <FontAwesomeIcon icon={faEye} />}
+              {!showPassword && <FontAwesomeIcon icon={faEyeSlash} />}
+            </button>
           </div>
           {error && <p className="text-red-500 p-2">{error}</p>}
           <button

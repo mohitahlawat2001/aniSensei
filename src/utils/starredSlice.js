@@ -8,10 +8,10 @@ const starredSlice = createSlice({
     },
     reducers: {
         addStarredMovies: (state, action) => {
-            state.starredMovies = {...state.starredMovies, ...action.payload};
+            state.starredMovies = { ...state.starredMovies, ...action.payload };
         },
         addStarredMovie: (state, action) => {
-            state.starredMovies = {...state.starredMovies, [action.payload.id]: action.payload};
+            state.starredMovies = { ...state.starredMovies, [action.payload.id]: action.payload };
         },
         removeStarredMovies: (state, action) => {
             delete state.starredMovies[action.payload];
@@ -22,6 +22,6 @@ const starredSlice = createSlice({
     }
 });
 
-export const { addStarredMovies, removeStarredMovies , toggleStarred , addStarredMovie } = starredSlice.actions;
+export const { addStarredMovies, removeStarredMovies, toggleStarred, addStarredMovie } = starredSlice.actions;
 
 export default starredSlice.reducer;

@@ -1,3 +1,4 @@
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Browse from "./Browse";
 import Login from "./Login";
@@ -12,10 +13,10 @@ const Body = () => {
     {
       path: "/browse",
       element: <Browse />,
-    },{
+    }, {
       path: "/starred",
       element: <StarredMovies />,
-    }, 
+    },
     {
       path: "/movie/:id",
       element: <Movie />,

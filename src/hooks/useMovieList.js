@@ -1,42 +1,42 @@
 
 import { useEffect } from "react";
 import { API_OPTIONS, MOVIE_LIST } from "../utils/constants";
-import { useDispatch , useSelector } from "react-redux";
-import { addPopularMovies ,addTopRatedMovies,addUpComingMovies } from "../utils/movieSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addPopularMovies, addTopRatedMovies, addUpComingMovies } from "../utils/movieSlice";
 
 const useMoviesList = (type) => {
 
     const movies = useSelector((state) => state.movies)
 
     const dispatch = useDispatch()
-    
+
     useEffect(() => {
-        if(type === 'popular' && movies.popularMovies){
-            return; 
-        } else if(type === 'top_rated' && movies.topRatedMovies){
+        if (type === 'popular' && movies.popularMovies) {
             return;
-        } else if(type === 'upcoming' && movies.upComingMovies){
+        } else if (type === 'top_rated' && movies.topRatedMovies) {
+            return;
+        } else if (type === 'upcoming' && movies.upComingMovies) {
             return;
         }
         getPopularMovies()
     }, [])
 
     const getPopularMovies = async () => {
-       try{
-           const response = await fetch( MOVIE_LIST(type) , API_OPTIONS)
-        const data = await response.json()
-        if(type === 'popular'){
-            dispatch(addPopularMovies(data.results))
-        } else if(type === 'top_rated'){
-            dispatch(addTopRatedMovies(data.results))
-        } else if(type === 'upcoming'){
-            dispatch(addUpComingMovies(data.results))
+        try {
+            const response = await fetch(MOVIE_LIST(type), API_OPTIONS)
+            const data = await response.json()
+            if (type === 'popular') {
+                dispatch(addPopularMovies(data.results))
+            } else if (type === 'top_rated') {
+                dispatch(addTopRatedMovies(data.results))
+            } else if (type === 'upcoming') {
+                dispatch(addUpComingMovies(data.results))
+            }
+
         }
-        
-    }
-    catch(error){
-        console.log(error)
-    }
+        catch (error) {
+            console.log(error)
+        }
     }
 
 

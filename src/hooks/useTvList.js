@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { API_OPTIONS, TV_LIST } from '../utils/constants';
-import { addPopularTv, addTopRatedTv, addAiringTodayTv ,addOnTheAirTv } from '../utils/tvSlice';
+import { addPopularTv, addTopRatedTv, addAiringTodayTv, addOnTheAirTv } from '../utils/tvSlice';
 import { useEffect } from 'react';
 
 const useTvList = (type) => {
@@ -8,32 +8,32 @@ const useTvList = (type) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(type === 'popular' && tv.popularTv){
+        if (type === 'popular' && tv.popularTv) {
             return;
-        } else if(type === 'top_rated' && tv.topRatedTv){
+        } else if (type === 'top_rated' && tv.topRatedTv) {
             return;
-        } else if(type === 'airing_today' && tv.airingTodayTv){
+        } else if (type === 'airing_today' && tv.airingTodayTv) {
             return;
-        } else if(type === 'on_the_air' && tv.onTheAirTv){
+        } else if (type === 'on_the_air' && tv.onTheAirTv) {
             return;
         }
         getTvList();
     }, []);
 
     const getTvList = async () => {
-        try{
+        try {
             const response = await fetch(TV_LIST(type), API_OPTIONS);
             const data = await response.json();
-            if(type === 'popular'){
+            if (type === 'popular') {
                 dispatch(addPopularTv(data.results));
-            } else if(type === 'top_rated'){
+            } else if (type === 'top_rated') {
                 dispatch(addTopRatedTv(data.results));
-            } else if(type === 'airing_today'){
+            } else if (type === 'airing_today') {
                 dispatch(addAiringTodayTv(data.results));
-            } else if(type === 'on_the_air'){
+            } else if (type === 'on_the_air') {
                 dispatch(addOnTheAirTv(data.results));
             }
-        } catch(error){
+        } catch (error) {
             console.log(error);
         }
     }

@@ -1,4 +1,4 @@
-const lang ={
+const lang = {
     en: {
         search: 'Search',
         AniSearchPlaceholder: 'What would you like to watch today?',
@@ -19,7 +19,7 @@ const lang ={
             { label: "Animes románticos conmovedores", query: "¿Podrías recomendarme animes románticos conmovedores con historias de amor cautivadoras?" }
         ]
     },
-    hi:{
+    hi: {
         search: 'खोज',
         AniSearchPlaceholder: 'आज आप क्या देखना चाहेंगे?',
         preBuiltQueries: [

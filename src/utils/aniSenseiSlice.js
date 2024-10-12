@@ -5,14 +5,14 @@ const aniSenseiSlice = createSlice({
     initialState: {
         searchView: 'Home',
         resultMovie: null,
-        resultName:null,
+        resultName: null,
     },
     reducers: {
         toggleSearchView: (state, action) => {
             state.searchView = action.payload;
         },
         addResultMovie: (state, action) => {
-            const {resultName, resultMovie} = action.payload;
+            const { resultName, resultMovie } = action.payload;
             state.resultMovie = resultMovie;
             state.resultName = resultName;
         }
@@ -20,6 +20,6 @@ const aniSenseiSlice = createSlice({
 });
 
 
-export const { toggleSearchView , addResultMovie } = aniSenseiSlice.actions;
+export const { toggleSearchView, addResultMovie } = aniSenseiSlice.actions;
 
 export default aniSenseiSlice.reducer;

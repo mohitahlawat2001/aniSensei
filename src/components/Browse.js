@@ -1,3 +1,4 @@
+import React from "react";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import useMoviesList from "../hooks/useMovieList";
 import Header from "./Header";
@@ -20,13 +21,13 @@ const Browse = () => {
     useTvList('on_the_air');
     return (
         <div >
-            <Header/>
-            {searchView==='AniSensei' ? <AniSensei/>:
-            <div className="bg-black w-screen h-screen ">
-            <MainContainer/>
-            <SecondaryContainer/>
-            </div>
-}
+            <Header />
+            {searchView === 'AniSensei' ? <AniSensei /> :
+                <div className="bg-black w-screen h-screen ">
+                    <MainContainer />
+                    <SecondaryContainer />
+                </div>
+            }
         </div>
     )
 }

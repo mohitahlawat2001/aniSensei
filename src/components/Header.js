@@ -1,3 +1,4 @@
+import React from "react";
 import Logo from "../assets/wall3.png";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
@@ -14,7 +15,7 @@ import { toggleStarred } from "../utils/starredSlice";
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightFromBracket  } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 
@@ -24,7 +25,7 @@ const Header = () => {
   const starred = useSelector((state) => state.starred.starred);
   const searchView = useSelector((state) => state.aniSensei.searchView);
   const dispatch = useDispatch();
-  
+
   const handleStarredClick = () => {
     dispatch(toggleStarred(!starred));
     navigate("/starred");
@@ -41,7 +42,7 @@ const Header = () => {
     if (searchView === "Movie") {
       dispatch(toggleSearchView("AniSensei"));
     }
-    if(!starred){
+    if (!starred) {
       dispatch(toggleStarred(true));
     }
   }
@@ -64,7 +65,7 @@ const Header = () => {
         // navigate("/browse");
         // ...
       } else {
-        
+
         dispatch(removeUser());
         navigate("/");
       }
@@ -79,8 +80,9 @@ const Header = () => {
         // Sign-out successful.
         // console.log("Sign-out successful.");
         dispatch(removeUser());
-    
+
       })
+      // eslint-disable-next-line no-unused-vars
       .catch((error) => {
         // An error happened.
         // console.log(error);
@@ -95,7 +97,7 @@ const Header = () => {
   }
   return (
     <div className=" px-8 py-2 absolute bg-gradient-to-b from-black w-screen z-10 flex justify-between flex-col md:flex-row ">
-      <button onClick={()=>{
+      <button onClick={() => {
         dispatch(toggleSearchView("Home"));
         dispatch(toggleStarred(true));
         navigate("/browse");
@@ -109,41 +111,41 @@ const Header = () => {
 
       {user && (
         <div className="p-2 mx-2 flex justify-between ">
-          {(searchView==='Movie'|| searchView==='AniSensei') && (
-          <select className="bg-transparent text-white   px-2   rounded-lg font-bold" onChange={handleLanguageChange}>
-            {SUPPORTED_LANGUAGES.map((lang) => (
-              <option key={lang.identifer} value={lang.identifer} className="bg-black">
-                {lang.name}
-              </option>
-            ))}
-          </select>
+          {(searchView === 'Movie' || searchView === 'AniSensei') && (
+            <select className="bg-transparent text-white   px-2   rounded-lg font-bold" onChange={handleLanguageChange}>
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.identifer} value={lang.identifer} className="bg-black">
+                  {lang.name}
+                </option>
+              ))}
+            </select>
           )}
-          <button 
+          <button
             onClick={handleAniSenseiClick}
-          className="bg-blue-600 text-white px-4  mx-4 rounded-lg font-bold hover:animate-pulse ">
-          <Link to="/browse">
-            {searchView === "Home" ? "AniSensei" : "Home"}
-          </Link>
+            className="bg-blue-600 text-white px-4  mx-4 rounded-lg font-bold hover:animate-pulse ">
+            <Link to="/browse">
+              {searchView === "Home" ? "AniSensei" : "Home"}
+            </Link>
           </button>
           <img
             src={user?.photoURL}
             alt="User Profile"
             className="hidden md:inline-block w-12 h-12 rounded-full cursor-pointer "
           />
-        {starred && (
+          {starred && (
             <button
               onClick={handleStarredClick}
               className="w-12 h-12 mx-2">
-                <FontAwesomeIcon icon={faBookmark} size="2xl" style={{color: "#74C0FC",}} />          
+              <FontAwesomeIcon icon={faBookmark} size="2xl" style={{ color: "#74C0FC", }} />
             </button>
-        )}
+          )}
           {/* sign out button */}
           <button
             onClick={() => handleSignOut()}
             // className="bg-blue-700 text-white px-2 py-1 rounded-lg m-2 font-bold "
             className="w-12 h-12 mx-2"
           >
-            <FontAwesomeIcon icon={faRightFromBracket} size="2xl" style={{color: "#74C0FC",}} />
+            <FontAwesomeIcon icon={faRightFromBracket} size="2xl" style={{ color: "#74C0FC", }} />
           </button>
         </div>
       )}
