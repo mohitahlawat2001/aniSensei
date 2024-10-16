@@ -12,6 +12,7 @@ import { onValue,ref } from "firebase/database";
 import { database } from "../utils/firebase";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import PasswordStrengthBar from "react-password-strength-bar"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Login = () => {
   const [isSignedInForm, setIsSignedInForm] = useState(true);
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(null);
+  const [passwordValue, setPasswordValue] = useState("");
   const dispatch = useDispatch();
 
   const name = useRef(null);
@@ -43,7 +45,9 @@ const Login = () => {
 
   }, [user]);
 
-
+  const handlePasswordChange = (e) => {
+    setPasswordValue(e.target.value); 
+  };
   const toggleForm = () => {
     setIsSignedInForm(!isSignedInForm);
   };
@@ -150,22 +154,30 @@ const Login = () => {
             placeholder="Email or phone number"
             className="w-full h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 p-4"
           />
-          <div className="flex items-center justify-between">
+          <div className="flex justify-between">
+         
+         <div className=" w-full">
+         <div>
             <input
               ref={password}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
               className="w-[95%] h-10 bg-gray-700 bg-opacity-50 placeholder-white placeholder-opacity-50 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-700 focus:ring-opacity-50 my-4 p-4"
+              onChange={handlePasswordChange}
             />
             <button
-              className="h-6 w-6"
+              className="h-5 w-5 ml-1"
               type="checkbox"
               title="Show Password"
               onClick={ShowPassword}>
                   {showPassword && <FontAwesomeIcon icon={faEye} />}
                   {!showPassword && <FontAwesomeIcon icon={faEyeSlash} />}
               </button>
-          </div>
+                <PasswordStrengthBar password={passwordValue}/>
+
+         </div>
+         </div>
+        </div>
           {error && <p className="text-red-500 p-2">{error}</p>}
           <button
             className="w-full h-10 bg-blue-600 rounded-md border-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 p-2 hover:bg-blue-700"
