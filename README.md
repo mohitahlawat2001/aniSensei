@@ -22,6 +22,8 @@ AniSensei is a feature-rich React application designed to provide users with the
 - **Movie/TvShow Lists:** Multiple movie lists to explore different categories.
 - **AniSensei Search Bar:** Powerful search functionality for discovering new movies or TvShow , just write what is on your mind.
 - **Movie Suggestions:** Tailored movie suggestions based on search results.
+- **Movie Watchlists:** Create and manage custom movie collections with default lists (Want to Watch, Currently Watching, Completed) and unlimited custom lists.
+- **Enhanced Movie Cards:** Easy-to-use dropdown for adding movies to different watchlists directly from browse page.
 
 
 ## Setup and Installation
@@ -114,8 +116,9 @@ anisensei/
 - **Custom Hooks:** `usePopularMovies`, `useNowPlayingMovies`,`useAniSensei`
 
 ### State Management
-- **Redux Store:** Configured with `userSlice`, `movieSlice`, `anisenseiSlice`.
+- **Redux Store:** Configured with `userSlice`, `movieSlice`, `anisenseiSlice`, `watchlistsSlice`.
 - **Memoization:** To optimize performance (used redux-store) .
+- **Watchlists Management:** Complete state management for multiple movie lists with Firebase sync.
 
 ### API Integration
 - **TMDB API:** For fetching movie data.
@@ -123,6 +126,28 @@ anisensei/
 
 ### Styling
 - **Tailwind CSS:** For responsive and modern UI design.
+
+## New Features
+
+### Movie Watchlists
+AniSensei now includes a comprehensive watchlists system that allows users to organize their movies beyond the basic starred functionality:
+
+- **Default Lists:** Three pre-configured lists available to all users:
+  - Want to Watch
+  - Currently Watching  
+  - Completed
+
+- **Custom Lists:** Users can create unlimited custom watchlists with personalized names
+
+- **Easy Management:** 
+  - Add movies to any list directly from movie cards via dropdown menu
+  - View all watchlists on dedicated `/watchlists` page
+  - Create new custom lists with simple form interface
+  - Delete custom lists (default lists are protected)
+
+- **Firebase Integration:** All watchlist data is automatically synced with Firebase Realtime Database for persistence across sessions
+
+- **Enhanced Navigation:** New watchlists icon in header provides quick access to all movie collections
 
 ## Contributing
 
