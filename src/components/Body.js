@@ -3,6 +3,7 @@ import Browse from "./Browse";
 import Login from "./Login";
 import Movie from "./Movie";
 import StarredMovies from "./StarredMovies";
+import Watchlists from "./Watchlists";
 const Body = () => {
   const AppRouter = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ const Body = () => {
     },{
       path: "/starred",
       element: <StarredMovies />,
+    },
+    {
+      path: "/watchlists",
+      element: <Watchlists />,
     }, 
     {
       path: "/movie/:id",
