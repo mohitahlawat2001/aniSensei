@@ -79,7 +79,7 @@ const Watchlists = () => {
                 />
             </div>
             
-            <div className="w-4/5 bg-white py-8 md:p-8 mt-20 md:mt-16 mx-auto bg-opacity-90 rounded-lg shadow-lg">
+            <div className="w-4/5 bg-white py-8 md:p-8 mt-[35%] md:mt-[15%] mx-auto bg-opacity-90 rounded-lg shadow-lg absolute left-1/2 transform -translate-x-1/2">
                 <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                     <h1 className="text-4xl font-bold text-gray-800">My Watchlists</h1>
                     <button
