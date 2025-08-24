@@ -14,7 +14,7 @@ import { toggleStarred } from "../utils/starredSlice";
 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightFromBracket  } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket, faList  } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
 
@@ -25,6 +25,10 @@ const Header = () => {
   const searchView = useSelector((state) => state.aniSensei.searchView);
   const dispatch = useDispatch();
   
+  const handleWatchlistsClick = () => {
+    navigate("/watchlists");
+  }
+
   const handleStarredClick = () => {
     dispatch(toggleStarred(!starred));
     navigate("/starred");
@@ -133,10 +137,17 @@ const Header = () => {
         {starred && (
             <button
               onClick={handleStarredClick}
-              className="w-12 h-12 mx-2">
+              className="w-12 h-12 mx-2"
+              title="Starred Movies">
                 <FontAwesomeIcon icon={faBookmark} size="2xl" style={{color: "#74C0FC",}} />          
             </button>
         )}
+        <button
+          onClick={handleWatchlistsClick}
+          className="w-12 h-12 mx-2"
+          title="My Watchlists">
+            <FontAwesomeIcon icon={faList} size="2xl" style={{color: "#74C0FC",}} />          
+        </button>
           {/* sign out button */}
           <button
             onClick={() => handleSignOut()}
